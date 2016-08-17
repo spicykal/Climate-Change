@@ -1,14 +1,16 @@
-data <- read.csv(url("http://data.giss.nasa.gov/gistemp/graphs/graph_data/mixedSH.Ts.ERSSTV4.GHCN.CL.PA.csv"), skip = 1)
+Southern_Hemisphere <- read.csv(url("http://data.giss.nasa.gov/gistemp/graphs/graph_data/mixedSH.Ts.ERSSTV4.GHCN.CL.PA.csv"), skip = 1)
 library(dplyr)
-data <- select(data, Year:Dec)
+library(ggplot2)
+library(plotly)
+Southern_Hemisphere <- select(Southern_Hemisphere, Year:Dec)
 
-data$Aug <- as.numeric(levels(data$Aug)[data$Aug])
-data$Sep <- as.numeric(levels(data$Sep)[data$Sep])
-data$Oct <- as.numeric(levels(data$Oct)[data$Oct])
-data$Nov <- as.numeric(levels(data$Nov)[data$Nov])
-data$Dec <- as.numeric(levels(data$Dec)[data$Dec])
+Southern_Hemisphere$Aug <- as.numeric(levels(Southern_Hemisphere$Aug)[Southern_Hemisphere$Aug])
+Southern_Hemisphere$Sep <- as.numeric(levels(Southern_Hemisphere$Sep)[Southern_Hemisphere$Sep])
+Southern_Hemisphere$Oct <- as.numeric(levels(Southern_Hemisphere$Oct)[Southern_Hemisphere$Oct])
+Southern_Hemisphere$Nov <- as.numeric(levels(Southern_Hemisphere$Nov)[Southern_Hemisphere$Nov])
+Southern_Hemisphere$Dec <- as.numeric(levels(Southern_Hemisphere$Dec)[Southern_Hemisphere$Dec])
 
-p <- ggplot(data, aes(Year, y = value, color = variable), ord) + 
+p_south <- ggplot(Southern_Hemisphere, aes(Year, y = value, color = Months)) + 
   geom_smooth(aes(y = Jan, col = "Jan"), se = FALSE, linetype = 1) + 
   geom_line(aes(y = Feb, col = "Feb"), linetype = 2) +
   geom_line(aes(y = Mar, col = "Mar"), linetype = 3) +
@@ -23,5 +25,5 @@ p <- ggplot(data, aes(Year, y = value, color = variable), ord) +
   geom_smooth(aes(y = Dec, col = "Dec"), se = FALSE, linetype = 6) + ggtitle("Southern Hemisphere Surface Temperature Difference (Base Period: 1951-1980)")+
   xlab("Years") +
   ylab("Land-Ocean Temperature Index in degrees Celsius")
-ggplotly(p)
+ggplotly(p_south)
 

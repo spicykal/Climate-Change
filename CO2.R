@@ -1,0 +1,4 @@
+CO2 <- read.csv(url("http://cdiac.ornl.gov/ftp/ndp030/CSV-FILES/global.1751_2011.csv"),header = FALSE, skip = 2)
+names(CO2) <- c("Year","Total carbon emissions from fossil fuel consumption and cement production (million metric tons of C)", "Carbon emissions from gas fuel consumption", "Carbon emissions from liquid fuel consumption", "Carbon emissions from solid fuel consumption", "Carbon emissions from cement production", "Carbon emissions from gas flaring")
+plot(CO2$Year, CO2$`Total carbon emissions from fossil fuel consumption and cement production (million metric tons of C)`, xlim = c(1700, 2015))
+plot(CO2$Year, CO2$`Carbon emissions from solid fuel consumption`, xlim = c(1700, 2015))
